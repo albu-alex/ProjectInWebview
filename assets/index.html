@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Line Graph</title>
+    <style>
+        body{
+            background: ghostwhite;
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        /* Style for the graph container */
+        #graph-container {
+            box-shadow: 0 2px 10px rgba(6, 120, 201, 0.25);
+
+            margin: 100px auto;
+            width: 300px;
+            height: 300px;
+            border: 1px solid rgba(6, 120, 201, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <!-- Graph container -->
+    <div id="graph-container"></div>
+    <h3>Above is a graph</h3>
+
+    <script>
+        // Sample data for the graph
+        const data = [
+            { x: 0, y: -100 },
+            { x: 1, y: -90 },
+            { x: 2, y: 0 },
+            { x: 3, y: -10 },
+            { x: 4, y: 60 },
+            { x: 9, y: 80 }
+        ];
+
+        // Function to create the line graph
+        function createGraph() {
+            // Get the graph container element
+            const container = document.getElementById('graph-container');
+
+            // Create an SVG element
+            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            svg.setAttribute('width', '100%');
+            svg.setAttribute('height', '100%');
+
+            // Create a polyline element for the line graph
+            const polyline = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+            polyline.setAttribute('fill', 'none');
+            polyline.setAttribute('stroke', 'green');
+            polyline.setAttribute('stroke-width', '2');
+
+            // Construct the points string for the polyline
+            const points = data.map(point => `${point.x * 50},${100 - point.y * 1.5}`).join(' ');
+
+            // Set the points attribute for the polyline
+            polyline.setAttribute('points', points);
+
+            // Append the polyline to the SVG element
+            svg.appendChild(polyline);
+
+            // Append the SVG element to the graph container
+            container.appendChild(svg);
+        }
+
+        // Call the createGraph function to generate the graph
+        createGraph();
+    </script>
+</body>
+</html>
